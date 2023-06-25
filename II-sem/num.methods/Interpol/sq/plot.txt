@@ -1,0 +1,8 @@
+set terminal png
+set output 'gnupng.png'
+set title "x*x-6"
+set title font "URW Type 1,20"
+set key font "URW Type 1,15"
+set key left
+
+p [-5:5] [-6:20] x*x-6 title "ideal" lw 2 lc rgb "green", "n_points.txt" title "initial" w p lw 2 lc rgb "red", "rand_points.txt" title "calculated" w p lw 2 lc rgb "blue"

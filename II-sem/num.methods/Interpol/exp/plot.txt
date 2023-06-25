@@ -1,0 +1,9 @@
+
+set terminal png
+set output 'gnupng.png'
+set title "e^x"
+set title font "URW Type 1,20"
+set key font "URW Type 1,15"
+set key left
+
+p [-5:5] [0:147] exp(x) title "ideal" lw 2 lc rgb "green", "n_points.txt" title "initial" w p lw 2 lc rgb "red", "rand_points.txt" title "calculated" w p lw 2 lc rgb "blue"                      

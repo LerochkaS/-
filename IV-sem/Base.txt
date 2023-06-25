@@ -1,0 +1,4 @@
+Zhilina 210 1000 406 Algebra 
+Kopiev 227 1315 1327 Matan
+Borodin 207 1500 425 Deistvan
+Mohov 208 900 207 Difgem
