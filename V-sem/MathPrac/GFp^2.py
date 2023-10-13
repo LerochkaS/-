@@ -2,6 +2,7 @@ def power(a, n):
     return (1 if n == 0
             else power(a * a, n // 2) if n % 2 == 0
             else a * power(a, n - 1))
+
 def is_prime (a: int) -> bool:
     for i in range(2, a // 2+1):
         if (a % i == 0):
@@ -35,7 +36,7 @@ class GFp2:
         if self.p == other.p:
             a:int = (self.a + other.a)%self.p
             b:int = (self.b + other.b)%self.p
-        return GFp2(a, b)
+            return GFp2(a, b)
     
     def isum(self, other):
         if self.p == other.p:
@@ -64,17 +65,20 @@ class GFp2:
         return GFp2(a, b)
     
     def print(self):
-        print(self.a, "*x+", self.b)
+        print(self.a, "* x +", self.b)
 
-if __name__ is __main__:
+if __name__ == "__main__":
     a = GFp2(1, 6)
-    print(a.a, a.b)
     print(a)
     b = GFp2(4, 2)
-    print(f"b: {b}")
+    print("b: ")
+    b.print()
     c = a.sum(b)
-    print(f"c = a + b = {c}")
+    print("c = a + b = ")
+    c.print()
     d = a.mul(b)
-    print(f"d = a*b = {d}")
+    print("d = a*b = ")
+    d.print()
     a.imul(b)
-    print(f"а = a*b: {a}")
+    print("а = a*b: ")
+    d.print()
