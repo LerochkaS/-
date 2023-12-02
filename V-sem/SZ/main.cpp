@@ -8,7 +8,7 @@
 
 using namespace std;
 
-void norm(double A[], double x[], int n, double* norm1, double* norm2, int var)
+void norm(double A[], double x[], int n, double* norm1, double* norm2)
 {
     double result1 = 0.0, result2 = 0.0;
     for (int i = 0; i < n; i++)
@@ -27,7 +27,7 @@ void norm(double A[], double x[], int n, double* norm1, double* norm2, int var)
 int main(int argc, char *argv[])
 {
     int k = 0, n, m, a, j = 0, i = 0;
-    double norm1, norm2, norma, eps;
+    double norm1, norm2, eps;
     double *A, *d1, *d2, *x;
     const char *filename;
     FILE* input;
@@ -122,7 +122,7 @@ int main(int argc, char *argv[])
             for (j = 0; j < n; j++) A[i * n + j] = f(n, k, i, j);
     }
 
-    norm(A, x, n, &norm1, &norm2, k);
+    norm(A, x, n, &norm1, &norm2);
     cout << "Norm1: " << norm1 << endl
          << "Norm2: " << norm2 << endl;
     free(A);

@@ -14,6 +14,7 @@ int main(int argc, char** argv)
 {
 	int n, m, k;
 	double Ax, norm_Ax_b, norm_b, nev, norm_dx;
+	double *matrix, *b, *x, *matrix2, *b2;
 	const char* filename;
 	chrono::steady_clock::time_point t1, t2;
 	FILE* input;
@@ -57,22 +58,22 @@ int main(int argc, char** argv)
 		}
 	}
 
-	double *matrix = new double[n*n];
-	double *b = new double[n];
-	double *x = new double[n];
+	matrix = (double*)malloc(sizeof(double) * n * n);
+	b = (double*)malloc(sizeof(double) * n);
+	x = (double*)malloc(sizeof(double) * n);
 
 	if (fill_matrix(matrix, n, k, input) == -1)
 	{
 		printf("Wrong data in file.\n");
-		delete[] matrix;
-		delete[] b;
-		delete[] x;
+		free(matrix);
+		free(b);
+		free(x);
 		return -1;
 	}
 	fill_vector(matrix, b, n);
 
-	double *matrix2 = new double[n*n];
-	double *b2 = new double[n];
+	matrix2 =(double*)malloc(sizeof(double) * n * n);
+	b2 = (double*)malloc(sizeof(double) * n);
 	for (int i = 0; i < n * n; i++) { matrix2[i] = matrix[i]; }
 	for (int i = 0; i < n ; i++) { b2[i] = b[i];}
 
@@ -82,17 +83,17 @@ int main(int argc, char** argv)
 	t1 = chrono::steady_clock::now();
 	if (jordan(n, matrix, b, x) == -1) {
 		printf("Error: matrix is singular.\n");
-		delete [] matrix;
-		delete [] matrix2;
-		delete [] b;
-		delete [] b2;
+		free(matrix);
+		free(matrix2);
+		free(b);
+		free(b2);
 		return -1;
 	}
 	t2 = chrono::steady_clock::now();
 
-	printf("\n Solution: \n"); 
+	printf("\n Решение: \n"); 
 	print_matrix(x, n, 1, m);
-	printf("\n Time: ");
+	printf("\n Время: ");
 	cout << chrono::duration_cast<std::chrono::microseconds> (t2 - t1).count() * 1e-6 << std::endl;
 
 	norm_Ax_b = 0;
@@ -107,17 +108,18 @@ int main(int argc, char** argv)
 		norm_b += b2[i] * b2[i];
 	}
 	nev = norm_Ax_b / norm_b;
-	printf("Discrepancy: %10.3e\n", nev);
+	printf("Невязка: %10.3e\n", nev);
 
 	norm_dx = 0;
 	for (int i = 0; i < n; i++) { norm_dx += (x[i] - (i + 1) % 2) * (x[i] - (i + 1) % 2); }
 	norm_dx = sqrt(norm_dx);
-	printf("Error: %10.3e\n", norm_dx);
+	printf("Погрешность: %10.3e\n", norm_dx);
 
-	delete [] matrix;
-	delete [] matrix2;
-	delete [] b;
-	delete [] b2;
+	free(matrix);
+	free(b);
+	free(x);
+	free(matrix2);
+	free(b2);
 
 	return 0;
 }

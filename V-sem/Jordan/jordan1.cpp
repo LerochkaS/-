@@ -1,5 +1,6 @@
 #include "jordan.h"
 #include "req.h"
+#include "math.h"
 
 int jordan(int n, double matrix[], double b[], double x[])
 {
@@ -32,7 +33,7 @@ int jordan(int n, double matrix[], double b[], double x[])
 		t = indj[k2];
 		indj[k2] = indj[m];
 		indj[m] = t;                                            
-		if (matrix[indi[m] * n + indj[m]] == 0) { return -1; } 
+		if (fabs(matrix[indi[m] * n + indj[m]]) < 1e-6) { return -1; } 
 		p = matrix[indi[m] * n + indj[m]];
 		b[indi[m]] /= p;
 		for (int j = n - 1; j > m; j--)
